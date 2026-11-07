@@ -1,46 +1,40 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <conio.h>
+#include <windows.h>
 
 using namespace std;
 
 int main() {
-    double num1, num2;
-    char op;
-    char choice;
+    srand(time(0));
+    int catX = rand() % 20 + 1;
+    int catY = rand() % 10 + 1;
+    int guessX, guessY;
+    int attempts = 0;
+    bool caught = false;
 
-    do {
-        cout << "=== BASIC CALCULATOR ===\n";
-        cout << "Enter first number: ";
-        cin >> num1;
-        cout << "Enter operator (+, -, *, /): ";
-        cin >> op;
-        cout << "Enter second number: ";
-        cin >> num2;
+    cout << "=== CATCH THE CAT ===\n";
+    cout << "A cat is hiding on a 20x10 grid.\n";
+    cout << "Guess its position (row 1-10, col 1-20).\n\n";
 
-        switch (op) {
-            case '+':
-                cout << "Result: " << num1 + num2 << "\n";
-                break;
-            case '-':
-                cout << "Result: " << num1 - num2 << "\n";
-                break;
-            case '*':
-                cout << "Result: " << num1 * num2 << "\n";
-                break;
-            case '/':
-                if (num2 != 0)
-                    cout << "Result: " << num1 / num2 << "\n";
-                else
-                    cout << "Error: Division by zero!\n";
-                break;
-            default:
-                cout << "Invalid operator!\n";
+    while (!caught) {
+        cout << "Attempt " << attempts + 1 << "\n";
+        cout << "Enter row (1-10): ";
+        cin >> guessY;
+        cout << "Enter col (1-20): ";
+        cin >> guessX;
+        attempts++;
+
+        if (guessX == catX && guessY == catY) {
+            caught = true;
+            cout << "\nMeow! You caught the cat!\n";
+            cout << "Attempts taken: " << attempts << "\n";
+        } else {
+            cout << "The cat is not there. Try again!\n\n";
         }
+    }
 
-        cout << "\nCalculate again? (y/n): ";
-        cin >> choice;
-        cout << "\n";
-    } while (choice == 'y' || choice == 'Y');
-
-    cout << "Goodbye!\n";
+    cout << "\nGame Over!\n";
     return 0;
 }
